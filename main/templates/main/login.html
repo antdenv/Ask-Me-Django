@@ -1,0 +1,19 @@
+{% extends 'main/include/base_no_auth.html' %}
+{% load static %}
+
+{% block title-name %}Log in{% endblock %}
+
+{% block content %}
+    <img src="{% static 'main/img/h1-rev-img-38.png' %}" alt="" class="signup-img">
+    <div class="login-form col d-flex align-items-center">
+        <form action="#">
+            <h3>Log In</h3>
+            <p>Sorry, wrong password!</p>
+            <input type="text" id="login" required placeholder="Your login..." autocomplete="on" maxlength="50"> <br>
+            <input type="password" id="password" required placeholder="Your password..." autocomplete="on" maxlength="50"> <br>
+            <a href="{% url 'signup' %}">Create new account</a><br>
+            <button type="submit">Log in!</button>
+        </form>
+    </div>
+{% endblock %}
+

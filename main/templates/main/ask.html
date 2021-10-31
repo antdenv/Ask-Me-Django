@@ -1,0 +1,19 @@
+{% extends 'main/include/base_no_auth.html' %}
+{% load static %}
+
+{% block title-name %}Ask question{% endblock %}
+
+{% block content %}
+    <img src="{% static 'main/img/h3-rev2-img-1.png' %}" alt="" class="login-img">
+    <div class="question col">
+        <form action="#">
+            <h3>New Question</h3>
+            <input type="text" id="title" required placeholder="Your question..." maxlength="50" autocomplete="on"> <br>
+            <textarea id="text" placeholder="Your description..." cols="45" rows="8" required maxlength="1000"></textarea> <br>
+            <input type="text" id="tags" required placeholder="Tags for question..." autocomplete="on" maxlength="50"> <br>
+            <button type="submit">Ask!</button>
+        </form>
+    </div>
+{% endblock %}
+
+

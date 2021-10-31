@@ -1,0 +1,25 @@
+{% extends 'main/include/base_auth.html' %}
+{% load static %}
+
+{% block title-name %}Your profile{% endblock %}
+
+{% block content %}
+    <img src="{% static 'main/img/user.jpg' %}" alt="" class="profile-img">
+    <img src="{% static 'main/img/avatar.jpg' %}" alt="avatar-user" id="user-avatar">
+    <div class="user-info">
+        <p>Dr. Pepper</p>
+        <p>@dr.pepper</p>
+        <p>dr.pepper@mail.ru</p>
+    </div>
+    <div class="profile-form col d-flex align-items-center">
+        <form action="#">
+            <h3>Settings profile</h3>
+            <input type="text" id="login" required placeholder="Your login..." autocomplete="on" maxlength="50"> <br>
+            <input type="text" id="email" required placeholder="Your email..." autocomplete="on" maxlength="50"> <br>
+            <input type="text" id="nickname" required placeholder="Your nickname..." autocomplete="on" maxlength="50"> <br>
+            <label for="avatar">Upload avatar</label><input type="file" id="avatar" placeholder="Upload avatar" required accept="image/jpeg,image/png,image/gif">
+            <button type="submit">Save</button>
+        </form>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% load static %}
+
+<div class="col-3 left-side">
+    <img src="{% static 'main/img/avatar.jpg' %}" alt="Avatar"><br>
+    <button>Like</button><span>0</span><button>Dizlike</button><span>0</span>
+</div>
+<div class="col-9 right-side">
+    <h3>How to build a moon park?</h3>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+        Voluptatum, fuga! Beatae temporibus, dolorum obcaecati minima facilis aspernatur,
+        adipisci mollitia, voluptatibus inventore porro distinctio quod odit magni animi.
+        Deleniti, error sequi!
+    </p>
+    <span>Tags:</span>
+    <a href="{% url 'tags' %}">black-jack</a>
+    <a href="{% url 'tags' %}">bender</a>
+</div>

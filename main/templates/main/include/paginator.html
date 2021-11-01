@@ -1,11 +1,11 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-      {% if questions.has_previous %}
+      {% if content.has_previous %}
         <li class="page-item">
             <a href="?page=1" class="page-link">&laquo; First</a>
         </li>
         <li class="page-item">
-            <a href="?page={{ questions.previous_page_number }}" class="page-link">Previous</a>
+            <a href="?page={{ content.previous_page_number }}" class="page-link">Previous</a>
         </li>
       {% else %}
         <li class="page-item disabled">
@@ -16,21 +16,21 @@
         </li>
       {% endif %}
 
-      <li class="page-item"><a class="page-link current" href="#">{{questions.number}} of {{questions.paginator.num_pages}}</a></li>
+      <li class="page-item"><a class="page-link current" href="#">{{content.number}} of {{content.paginator.num_pages}}</a></li>
 
-      {% if questions.has_next %}
+      {% if content.has_next %}
         <li class="page-item">
-            <a href="?page={{ questions.next_page_number }}" class="page-link">Next</a>
+            <a href="?page={{ content.next_page_number }}" class="page-link">Next</a>
         </li>
         <li class="page-item">
-            <a href="?page={{ questions.paginator.num_pages }}" class="page-link">Last &raquo;</a>
+            <a href="?page={{ content.paginator.num_pages }}" class="page-link">Last &raquo;</a>
         </li>
       {% else %}
         <li class="page-item disabled">
             <a class="page-link" href="">Next</a>
         </li>
         <li class="page-item disabled">
-            <a href="?page={{ questions.paginator.num_pages }}" class="page-link">Last &raquo;</a>
+            <a href="?page={{ content.paginator.num_pages }}" class="page-link">Last &raquo;</a>
         </li>
       {% endif %}
   </ul>

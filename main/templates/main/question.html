@@ -14,7 +14,7 @@
                 {% include "main/include/single_an.html" %}
             {% endfor %}
         </div>
-        {% include "main/include/paginator_for_answers.html" %}
+        {% include "main/include/paginator.html" with content=anw_block %}
         <div class="hr" id="hr2"></div>
         <div class="row footer-block">
             <textarea id="anwser-textarea" placeholder="Enter your anwser here..." cols="45" rows="6" required maxlength="1000"></textarea> <br>

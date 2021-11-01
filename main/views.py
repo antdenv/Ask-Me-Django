@@ -3,9 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
-    paginator = Paginator(questions, 5)
-    page = request.GET.get('page')
-    content = paginator.get_page(page)
+    content = paginate(request, questions)
     return render(request, 'main/index.html', {'questions': content})
 
 
@@ -22,9 +20,7 @@ def profile(request):
 
 
 def question(request):
-    paginator = Paginator(anw_block, 3)
-    page = request.GET.get('page')
-    content = paginator.get_page(page)
+    content = paginate(request, anw_block)
     return render(request, 'main/question.html', {'anw_block': content})
 
 
@@ -33,10 +29,15 @@ def signup(request):
 
 
 def tags(request):
-    paginator = Paginator(questions, 5)
-    page = request.GET.get('page')
-    content = paginator.get_page(page)
+    content = paginate(request, questions)
     return render(request, 'main/tags.html', {'questions': content})
+
+
+def paginate(request, objects_list, per_page=5):
+  paginator = Paginator(objects_list, per_page)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  return page_obj
 
 
 anw_block = [

@@ -13,7 +13,7 @@
                 {% include "main/include/block_question.html" %}
             {% endfor %}
         </div>
-        {% include "main/include/paginator.html" %}
+        {% include "main/include/paginator.html" with content=questions %}
     </div>
 {% endblock %}
 

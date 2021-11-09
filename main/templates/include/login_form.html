@@ -1,0 +1,25 @@
+{% load static %}
+
+<br>
+<br>
+<div class="container">
+    <img src="{% static 'img/h1-rev-img-38.png' %}" class="login-img-form">
+    <div class="login-form">
+        <form role="form" action="/login/?next={{request.GET.next}}" method="post">
+            <h2>Log In</h2>
+            {% csrf_token %}
+            {% for errors in messages %}
+                <div class="warning col-10 text-dark">
+                    <p class="px-3 pt-2 warning-p"> {{ errors }}</p>
+                </div>
+            {% endfor %}
+            <div class="login-input"><input id="login" name="username" type="text" required placeholder="Your login..."></div>
+            <div class="password-input"><input id="password" name="password" type="password" required placeholder="Your password..."></div>
+            <div class="btn-login-form"><button type="submit" value="Login" class="btn btn-primary btn-lg">Log In</button></div>
+            <a href="#" class="link-form">Create new account!</a>
+        </form>
+
+    </div>
+</div>
+
+

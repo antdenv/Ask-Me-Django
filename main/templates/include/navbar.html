@@ -1,0 +1,58 @@
+{% load static %}
+
+<header>
+    <nav class="navbar navbar-expand-md fixed-top ">
+        <div class="container-fluid header navbar">
+            <a href="{% url 'index' %}"><span class="just">Just</span><span class="ask">Ask</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="search">
+                <form class="d-flex">
+                    <input class="me-2 search-input" type="search" placeholder="Enter your question"
+                           aria-label="Search">
+                    <button class="btn" type="submit">Search</button>
+                </form>
+            </div>
+            <a class="navbar-brand logo-text ask-question" href="{% url 'ask' %}">Ask question</a>
+            <div class="profile-info">
+
+                {% if user.is_authenticated %}
+                    <!-- Logged in profile info -->
+                    <div class="row row-profile-info">
+                        <div class="col-1 avatar-space">
+                            <img class="profile-avatar" src="{{ user.avatar.url }}" alt="">
+                        </div>
+                        <div class="col-11 profile-text-area">
+                            <div class="profile-text">
+                                {{ user.username }}
+                            </div>
+
+                            <div class="profile-btns">
+                                <a href="{% url 'settings' %}" role="button"
+                                   class="btn btn-success me-3">Settings
+                                </a>
+                                <a href="/logout/?from={{ request.get_full_path }}">
+                                    <button type="button" class="btn btn-success">Log out
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="log-in">
+                        <a href="/login/?next={% if request.GET.next %}{{ request.GET.next }}{% else %}{{ request.path_info }}{% endif %}"
+                           role="button" class="log-in-btn btn btn-success">
+                            Log in
+                        </a>
+                        <a href="{% url 'signup' %}" role="button"
+                           class="log-in-btn btn btn-success">Register
+                        </a>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,18 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include "include/single_question.html" with answer_question_block=main %}
+    <h2><p class="answers-t">Answers:</p></h2>
+    <br>
+    {% for answer_question_block in page %}
+        {% include "include/question_template.html" %}
+    {% endfor %}
+    {% include "include/pagination.html" %}
+    {% if user.is_authenticated %}
+        {% include "include/answer_textarea.html" %}
+    {% endif %}
+{% endblock content %}
+{% block script_js %}
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

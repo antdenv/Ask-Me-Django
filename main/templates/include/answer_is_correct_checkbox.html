@@ -1,0 +1,19 @@
+<div class="question-tags-answers">
+{% if answer_question_block.type == 'answer' %}
+    <div class="form-check">
+        <input class="form-check-input status-checkbox" data-a_id = "{{ answer_question_block.id }}"
+               data-is_true = '{{ answer_question_block.status }}'
+               type="checkbox" value="" id="flexCheckChecked"
+               {% if answer_question_block.status == True %}
+                   checked
+               {% endif %}
+               {% if  main.author.id != request.user.id  %}
+                    disabled
+               {% endif %}>
+        <label class="correct-check-label form-check-label" for="flexCheckChecked">
+            Correct!
+        </label>
+    </div>
+{% endif %}
+</div>
+

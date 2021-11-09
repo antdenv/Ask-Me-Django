@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="row question" id="{{ answer_question_block.id }}">
+    <div class="q-first-col col-2">
+        <div class="question-img-area">
+            <img class="question-img rounded-circle" src="{{ answer_question_block.author.avatar.url }}" alt="">
+        </div>
+        {% include "include/counter.html" %}
+    </div>
+    <div class="col-2 info-about-user">
+        <p><small class="text-muted">{{ answer_question_block.author.username }}</small></p>
+        <p><small class="text-muted">Date: {{ answer_question_block.date }}</small></p>
+    </div>
+    <div class="q-second-col col-8">
+        <div class="question-text-header">
+            {% if answer_question_block.type == 'question' %}
+                <a href="{% url 'question' pk=answer_question_block.id %}"
+                   class="question-head list-group-item-heading">{{ answer_question_block.title }}</a>
+            {% else %}
+                <div class="question-head">{{ answer_question_block.title }}</div>
+            {% endif %}
+            <div class="question-text">
+                <p>{{ answer_question_block.text }}</p>
+            </div>
+        </div>
+        {% if answer_question_block.type == 'question' %}
+            {% include "include/answers_and_tags.html" %}
+        {% else %}
+            {% include "include/answer_is_correct_checkbox.html" %}
+        {% endif %}
+    </div>
+</div>

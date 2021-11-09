@@ -1,0 +1,10 @@
+<hr class="under-m-question-line" size="4">
+
+<form class="textarea form-horizontal go-bottom" action="{{ request.path }}" method="post">
+    {% csrf_token %}
+    <div class="col-md-12">
+        <div class="form-group">{{ form.text }}</div>
+    </div>
+    <br>
+    <button type="submit" class="textarea-btn answer-btn btn btn-primary">Answer!</button>
+</form>

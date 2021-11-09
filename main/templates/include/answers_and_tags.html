@@ -1,0 +1,13 @@
+<div class="question-tags-answers">
+    <div class="answers">
+        <a href="{% url 'question' pk=answer_question_block.id %}" role="button" class="answer-btn-num btn btn-primary">
+            Answers: <span class="badge badge-dark">{{ answer_question_block.answers.hottest | length }}</span>
+        </a>
+    </div>
+    <div class="q-tags">
+        Tags:
+        {% for tags in answer_question_block.tags.all %}
+            <a href="{% url 'tag' tag_name=tags.title %}" class="tag-button badge rounded-pill bg-danger">{{ tags.title }}</a>
+        {% endfor %}
+    </div>
+</div>

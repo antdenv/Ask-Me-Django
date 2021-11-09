@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="row main-question">
+    <div class="q-first-col col-2">
+        <div class="main-question-img-area">
+            <img class="question-img rounded-circle" src=" {{ main.author.avatar.url }} " alt="">
+        </div>
+        {% include "include/counter.html" %}
+    </div>
+    <div class="col-2"><h4><small class="text-muted quest-author">Author: {{ main.author.username }}</small></h4>
+        <small class="text-muted">Date: {{ main.date }}</small></h4>
+    </div>
+    <div class="q-second-col col-8">
+        <div class="question-text-header">
+            <div class="quest-title main-question-head">{{ main.title }}</div>
+            <div class="quest-text main-question-text">{{ main.text }}
+            </div>
+        </div>
+        <div class="question-tags-answers">
+            <div class="q-tags-h">
+                Tags:
+                {% for tags in main.tags.all %}
+                    <a href="{% url 'tag' tag_name=tags.title %}" class="badge rounded-pill bg-danger">{{ tags.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="under-m-question-line" size="4">

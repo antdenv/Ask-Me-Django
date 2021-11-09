@@ -1,0 +1,15 @@
+{% extends "include/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% include "include/new_questions.html" %}
+
+    {% for answer_question_block in page %}
+        {% include "include/question_template.html" %}
+    {% endfor %}
+
+    {% include "include/pagination.html" %}
+{% endblock content %}
+{% block script_js %}
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

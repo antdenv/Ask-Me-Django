@@ -1,0 +1,30 @@
+{% load static %}
+
+<div class="container" style="margin-left: 80px;">
+    <img src="{% static 'img/signup.png' %}" class="signup-img-form">
+    <div class="signup-form">
+        <h2 class="register-title">Registration</h2>
+        <form role="form" action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            {% for errors in messages %}
+                <div class="register-warning col-11 text-dark">
+                    <p class="warning-p"> {{ errors }}</p>
+                </div>
+            {% endfor %}
+            <div class="form-block-signup">
+                <div class="login"><input id="username" name="username" type="text" required placeholder="Your login..."></div>
+                <div class="email"><input id="email" name="email" type="email" required placeholder="Your email..."></div>
+                <div class="first-name"><input id="first_name" name="first_name" type="text" required placeholder="Your first name..."></div>
+                <div class="last-name"><input id="last_name" name="last_name" type="text" required placeholder="Your last name..."></div>
+                <div class="password"><input id="password" name="password" type="password" required placeholder="Your password..."></div>
+                <div class="repeat-password"><input id="password_confirmation" name="password_confirmation" type="password" required placeholder="Repeat your password..."></div>
+                <div class="avatar-upl">
+                        <input class="form-control " type="file" id="formFile">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                </div>
+                <button type="submit" value="Register" class="register-btn btn btn-primary btn-lg">Register</button>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,13 @@
+{% load static %}
+<div class="answer react">
+    <div class="plus-minus-counter">
+        <div class="answer react">
+            <button type="button" class="like-btn btn-like btn btn-success glyphicon"
+                    data-id="{{ answer_question_block.id }}" data-type="{{ answer_question_block.type }}"
+                    data-action="like"><img class="likes-img" src="{% static 'img/like.png' %}"><span>{{ answer_question_block.votes.likes.count }}</span></button>
+            <button type="button" class="like-btn  btn-dislike btn btn-danger glyphicon"
+                    data-id="{{ answer_question_block.id }}" data-type="{{ answer_question_block.type }}"
+                    data-action="dislike" onclick=""><img class="likes-img" src="{% static 'img/dislike.png' %}"><span>{{ answer_question_block.votes.dislikes.count }}</span></button>
+        </div>
+    </div>
+</div>

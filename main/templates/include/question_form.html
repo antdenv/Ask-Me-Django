@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="container" style="margin-left: 80px;">
+    <img src="{% static 'img/h3-rev2-img-1.png' %}" alt="" class="ask-img">
+</div>
+
+<div class="ask-form">
+    <form role="form" class="form-horizontal go-bottom" action="{% url 'ask' %}" method="post">
+        <h2 class="m-0 pb-4">New Question</h2>
+        {% csrf_token %}
+        {% for errors in messages %}
+            <div class="col-8 border text-dark">
+                <p class="px-3 pt-2 "> {{ errors }}</p>
+            </div>
+        {% endfor %}
+        <div class="col-8 mb-4">
+            <input id="title" name="title" type="text" required placeholder="Your question...">
+        </div>
+        <div class="col-8 mb-4">
+            <textarea id="text" cols="45" rows="8" name="text" required placeholder="Your description..."></textarea>
+        </div>
+        <div class="col-8">
+            <input id="tags" name="tags" required placeholder="Tags for question...">
+        </div>
+        <div class="d-flex align-items-center pt-4 form-group">
+            <button type="submit" class="ask-btn btn btn-primary btn-lg">Ask!</button>
+        </div>
+    </form>
+</div>

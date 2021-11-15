@@ -9,8 +9,8 @@ from django.contrib.auth.models import UserManager as AbstractUserManager
 
 
 class UserManager(AbstractUserManager):
-    def by_username(self, username):
-        return self.all().filter(username=username).first()
+    def get_top_users(self):
+        return self.order_by("-rating")
 
 
 class QuestionManager(models.Manager):
@@ -30,8 +30,8 @@ class AnswerManager(models.Manager):
 
 
 class TagManager(models.Manager):
-    def by_tag(self, tag_str):
-        return self.filter(title=tag_str).first().questions.all().order_by('date').reverse()
+    def get_top_tags(self):
+        return self.order_by("-rating")
 
 
 class LikeManager(models.Manager):
@@ -61,13 +61,19 @@ class User(AbstractUser):
 
 
 class Tag(models.Model):
-    title = models.CharField(max_length=50, default='404', verbose_name='Tag')
+    title = models.CharField(max_length=50, default='404', verbose_name='Tag', unique=True)
+    rating = models.IntegerField(default=0)
     objects = TagManager()
+
+    def get_rating(self):
+        res = Question.objects.filter(tags=self.title).count()
+        self.rating = res
+        self.save(update_fields=["rating"])
+        return res
 
     class Meta:
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
-        unique_together = ('title',)
 
     def __str__(self):
         return self.title
@@ -76,7 +82,7 @@ class Tag(models.Model):
 class Like(models.Model):
     LIKE = 1
     DISLIKE = -1
-    TYPES = ((LIKE, 'Like'), (DISLIKE, 'Dislike'))
+    TYPES = ((LIKE, 1), (DISLIKE, -1))
 
     user = models.ForeignKey(User, null=True, verbose_name='User like', on_delete=models.CASCADE)
     vote = models.SmallIntegerField(verbose_name='like', default=TYPES[0], choices=TYPES)
@@ -97,7 +103,7 @@ class Question(models.Model):
     author = models.ForeignKey(User, null=False, verbose_name='Question author', on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now, verbose_name='Question date create')
     is_active = models.BooleanField(default=True, verbose_name='Question active')
-    title = models.CharField(max_length=50, verbose_name='Title')
+    title = models.CharField(max_length=255, verbose_name='Title')
     text = models.TextField(verbose_name='Question text')
     tags = models.ManyToManyField(Tag, related_name='questions', blank=True, verbose_name='Tags')
     votes = GenericRelation(Like, related_query_name='questions')

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from main.models import *
-from random import choice
+import random
 from faker import Faker
 from itertools import islice
 
@@ -15,32 +15,38 @@ class Command(BaseCommand):
         parser.add_argument('--questions', nargs='+', type=int)
         parser.add_argument('--answers', nargs='+', type=int)
         parser.add_argument('--tags', nargs='+', type=int)
+        parser.add_argument('--likes', nargs='+', type=int)
 
     def handle(self, *args, **options):
         if options['users']:
             self.fillUsers(options['users'][0])
         else:
-            self.fillUsers(1000)
+            self.fillUsers(10)
         print('users created')
 
         if options['tags']:
             self.fillTags(options['tags'][0])
         else:
-            self.fillTags(100)
+            self.fillTags(10)
         print('tags created')
 
         if options['questions']:
             self.fillQuestions(options['questions'][0])
         else:
-            self.fillQuestions(400)
+            self.fillQuestions(40)
         print('questions created')
 
         if options['answers']:
             self.fillAnswers(options['answers'][0])
         else:
-            self.fillAnswers(3000)
-
+            self.fillAnswers(50)
         print('answers created')
+
+        if options['likes']:
+            self.fillLikes(options['likes'][0])
+        else:
+            self.fillLikes(50)
+        print('likes created')
 
     def fillTags(self, n):
         tags = (Tag(
@@ -75,10 +81,10 @@ class Command(BaseCommand):
         )
 
         questions = (Question(
-            author=User.objects.all().get(id=choice(author_ids)),
+            author=User.objects.all().get(id=random.choice(author_ids)),
             title=f.sentence()[:128],
             text='. '.join(f.sentences(f.random_int(min=2, max=5))),
-            rate=f.random_int(min=2, max=5)
+            rating=f.random_int(min=2, max=5)
         ) for i in range(n))
 
         while True:
@@ -97,7 +103,7 @@ class Command(BaseCommand):
 
         for question in questions:
             for i in range(f.random_int(min=2, max=5)):
-                question.tags.add(choice(tags))
+                question.tags.add(random.choice(tags))
 
 
     def fillAnswers(self, n):
@@ -114,10 +120,10 @@ class Command(BaseCommand):
         )
 
         answers = (Answer(
-            author=User.objects.all().get(id=choice(author_ids)),
-            question=Question.objects.all().get(id=choice(questionIds)),
+            author=User.objects.all().get(id=random.choice(author_ids)),
+            question=Question.objects.all().get(id=random.choice(questionIds)),
             text='. '.join(f.sentences(f.random_int(min=2, max=5))),
-            rate=f.random_int(min=2, max=5)
+            rating=f.random_int(min=2, max=5)
         ) for i in range(n))
 
         while True:
@@ -125,3 +131,23 @@ class Command(BaseCommand):
             if not batch:
                 break
             Answer.objects.bulk_create(batch, batchSize)
+
+    def fillLikes(self, n):
+        user = User.objects.all()
+        for question in Question.objects.all():
+            for i in range(random.randint(1, 5)):
+                like = Like()
+                like.vote = 1
+                like.user = random.choice(user)
+                like.content_object = question
+                like.save()
+            question.save()
+
+        for answer in Answer.objects.all():
+            for i in range(random.randint(1, 5)):
+                like = Like()
+                like.vote = 1
+                like.user = random.choice(user)
+                like.content_object = answer
+                like.save()
+            answer.save()

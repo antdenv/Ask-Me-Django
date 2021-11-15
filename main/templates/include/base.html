@@ -25,7 +25,7 @@
                         <div class="popular-tags-h">Popular Tags</div>
                         <div class="tags">
                             {% for tag in popular_tags %}
-                                <a href="{% url 'tag' tag_name=tag.name %}" class="tags-link badge rounded-pill bg-danger">{{ tag.name }}</a>
+                                <a href="{% url 'tag' tag %}" class="tags-link badge rounded-pill bg-danger">{{ tag }}</a>
                             {% endfor %}
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="best-members">
                             <ul>
                                 {% for member in popular_members %}
-                                    <li><a href="#" class="member">{{ member.name }}</a></li>
+                                    <li><a href="#" class="member">{{ member }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>

@@ -13,7 +13,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', login, name='login'),
     path('ask/', ask, name='ask'),
-    url(r'^tag/(?P<tag_name>.*)/$', tag, name='tag'),
+    path('tag/<str:tag_name>', tag, name='tag'),
     url(r'^(?P<username>[a-zA-Zа-яА-Я_\-\.0-9]+?)$', profile, name='profile'),
     url(r'^logout/.*?$', logout, name='logout'),
     re_path(r'^/', index),

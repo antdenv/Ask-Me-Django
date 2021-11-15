@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             name='Tag',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(default='404', max_length=50, verbose_name='Tag')),
+                ('title', models.CharField(default='404', max_length=50, verbose_name='Tag', unique=True)),
             ],
             options={
                 'verbose_name': 'Tag',

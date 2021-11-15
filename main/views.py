@@ -10,36 +10,6 @@ from .models import *
 from .forms import *
 
 
-popular_members = [
-    {'name': 'Antdenv'},
-    {'name': 'JFernandezzz'},
-    {'name': 'Vadyambik'},
-    {'name': 'VitRat'},
-    {'name': 'Solauge'},
-]
-
-tags = [
-    {'name': 'C',
-     'priority': 'high'},
-    {'name': 'Python',
-     'priority': 'medium'},
-    {'name': 'HTML',
-     'priority': 'low'},
-    {'name': 'JavaScript',
-     'priority': 'high'},
-    {'name': 'Java',
-     'priority': 'medium'},
-    {'name': 'PHP',
-     'priority': 'low'},
-    {'name': 'Go',
-     'priority': 'very high'},
-    {'name': 'Django',
-     'priority': 'high'},
-    {'name': 'Bootstrap',
-     'priority': 'medium'}
-]
-
-
 def fill_errors(form_errors, errors):
     for i in form_errors:
         formatted_field_name = i.replace('_', ' ')
@@ -72,16 +42,16 @@ def index(request):
     return render(request, 'base.html',
                   {'page': paginate(Question.objects.newest(), request),
                    'profile': profile,
-                   'popular_members': popular_members,
-                   'popular_tags': tags})
+                   'popular_members': User.objects.get_top_users()[0:10],
+                   'popular_tags': Tag.objects.get_top_tags()[0:10]})
 
 
 def hot(request):
     return render(request, 'hot.html',
                   {'page': paginate(Question.objects.hottest(), request),
                    'profile': profile,
-                   'popular_members': popular_members,
-                   'popular_tags': tags})
+                   'popular_members': User.objects.get_top_users()[0:10],
+                   'popular_tags': Tag.objects.get_top_tags()[0:10]})
 
 
 def signup(request):
@@ -106,8 +76,8 @@ def signup(request):
         auth_logout(request)
 
     return render(request, 'signup.html', {'form': form, 'messages': errors,
-                                           'popular_members': popular_members,
-                                           'popular_tags': tags,
+                                           'popular_members': User.objects.get_top_users()[0:10],
+                                           'popular_tags': Tag.objects.get_top_tags()[0:10],
                                            })
 
 
@@ -140,8 +110,8 @@ def login(request):
             errors.append('Invalid username or password')
 
         auth_logout(request)
-    return render(request, 'login.html', {'popular_members': popular_members,
-                                          'popular_tags': tags, 'form': form,
+    return render(request, 'login.html', {'popular_members': User.objects.get_top_users()[0:10],
+                                          'popular_tags': Tag.objects.get_top_tags()[0:10], 'form': form,
                                           'messages': errors})
 
 
@@ -175,8 +145,8 @@ def ask(request):
             fill_errors(form.errors, errors)
 
     return render(request, 'ask.html', {'form': form, 'messages': errors,
-                                        'popular_members': popular_members,
-                                        'popular_tags': tags,
+                                        'popular_members': User.objects.get_top_users()[0:10],
+                                        'popular_tags': Tag.objects.get_top_tags()[0:10],
                                         })
 
 
@@ -201,8 +171,8 @@ def settings(request):
         for i in form.base_fields:
             form.base_fields[i].widget.attrs['placeholder'] = getattr(request.user, i)
     return render(request, 'settings.html', {'form': form, 'messages': errors,
-                                             'popular_members': popular_members,
-                                             'popular_tags': tags,
+                                             'popular_members': User.objects.get_top_users()[0:10],
+                                             'popular_tags': Tag.objects.get_top_tags()[0:10],
                                              })
 
 
@@ -235,8 +205,8 @@ def question(request, pk, new=0):
                           {'page': paginate(answers, request),
                            'main': curr_question,
                            'profile': profile,
-                           'popular_members': popular_members,
-                           'popular_tags': tags,
+                           'popular_members': User.objects.get_top_users()[0:10],
+                           'popular_tags': Tag.objects.get_top_tags()[0:10],
                            'form': form})
     else:
         raise Http404
@@ -253,8 +223,8 @@ def tag(request, tag_name):
                   {'page': paginate(by_tag_sorted_questions, request),
                    'profile': profile,
                    'tag_name': tag_name,
-                   'popular_members': popular_members,
-                   'popular_tags': tags})
+                   'popular_members': User.objects.get_top_users()[0:10],
+                   'popular_tags': Tag.objects.get_top_tags()[0:10]})
 
 
 class VotesView(View):

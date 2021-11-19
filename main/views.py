@@ -47,8 +47,9 @@ def index(request):
 
 
 def hot(request):
+    questions = Question.objects.hottest()
     return render(request, 'hot.html',
-                  {'page': paginate(Question.objects.hottest(), request),
+                  {'page': paginate(questions, request),
                    'profile': profile,
                    'popular_members': User.objects.get_top_users()[0:10],
                    'popular_tags': Tag.objects.get_top_tags()[0:10]})

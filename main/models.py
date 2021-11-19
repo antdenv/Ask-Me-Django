@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db.models import Sum
+from django.db.models import Count
 from django.contrib.auth.models import UserManager as AbstractUserManager
 
 
@@ -15,7 +16,10 @@ class UserManager(AbstractUserManager):
 
 class QuestionManager(models.Manager):
     def hottest(self):
-        return self.all().order_by('rating').reverse()
+        q = self.order_by('-rating')
+        if q is None:
+            return None
+        return q.prefetch_related()[:1000]
 
     def newest(self):
         return self.all().order_by('date').reverse()
@@ -137,4 +141,7 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
+
+
+
 

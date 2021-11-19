@@ -1,6 +1,7 @@
 <hr class="under-m-question-line" size="4">
 
-<form class="textarea form-horizontal go-bottom" action="{{ request.path }}" method="post">
+<!-- action="{{ request.path }}" -->
+<form class="textarea form-horizontal go-bottom" action="/question/{{ main.pk }}/" method="post">
     {% csrf_token %}
     <div class="col-md-12">
         <div class="form-group">{{ form.text }}</div>

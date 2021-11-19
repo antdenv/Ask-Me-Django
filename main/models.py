@@ -16,10 +16,7 @@ class UserManager(AbstractUserManager):
 
 class QuestionManager(models.Manager):
     def hottest(self):
-        q = self.order_by('-rating')
-        if q is None:
-            return None
-        return q.prefetch_related()[:1000]
+        return self.annotate(sum_likes=Count('votes')).order_by('sum_likes').reverse()
 
     def newest(self):
         return self.all().order_by('date').reverse()
